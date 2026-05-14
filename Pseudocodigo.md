@@ -1,258 +1,290 @@
-###Proyecto Final Tecnología de la Programación\
-
-##Sistema de turnos y atención al cliente\
-
 ENUM TipoTramite
     SIMPLE = 5
     MEDIO = 15
     COMPLEJO = 30
-FIN ENUM\
+FIN ENUM
 
 
 VARIABLE filaTurnos = Cola()
 VARIABLE historialAtendidos = Lista()
 VARIABLE conteoTramites = Diccionario()
-VARIABLE turnoActual = NULO\
+VARIABLE turnoActual = NULO
 
 conteoTramites["SIMPLE"] = 0
 conteoTramites["MEDIO"] = 0
-conteoTramites["COMPLEJO"] = 0\
+conteoTramites["COMPLEJO"] = 0
 
 
 FUNCION validarCliente(nombre)
+
     SI nombre == "" ENTONCES
         RETORNAR FALSO
-    FIN SI\
+    FIN SI
 
     RETORNAR VERDADERO
-FIN FUNCION\
+
+FIN FUNCION
 
 
 FUNCION validarTramite(tipoTramite)
+
     SI tipoTramite == "SIMPLE" O
        tipoTramite == "MEDIO" O
-       tipoTramite == "COMPLEJO" ENTONCES\
+       tipoTramite == "COMPLEJO" ENTONCES
 
         RETORNAR VERDADERO
+
     SINO
+
         RETORNAR FALSO
+
     FIN SI
-FIN FUNCION\
+
+FIN FUNCION
 
 
 FUNCION determinarTiempoTramite(tipoTramite)
-    SEGUN tipoTramite HACER\
+
+    SEGUN tipoTramite HACER
 
         CASO "SIMPLE":
-            RETORNAR 5\
+            RETORNAR 5
 
         CASO "MEDIO":
-            RETORNAR 15\
+            RETORNAR 15
 
         CASO "COMPLEJO":
-            RETORNAR 30\
+            RETORNAR 30
 
     FIN SEGUN
-FIN FUNCION\
+
+FIN FUNCION
 
 
-FUNCION crearTurno(nombre, tipoTramite)\
+FUNCION crearTurno(nombre, tipoTramite)
 
     SI validarCliente(nombre) == FALSO ENTONCES
         MOSTRAR "Error: nombre vacío"
         RETORNAR NULO
-    FIN SI\
+    FIN SI
 
     SI validarTramite(tipoTramite) == FALSO ENTONCES
         MOSTRAR "Error: trámite inválido"
         RETORNAR NULO
-    FIN SI\
+    FIN SI
 
-    VARIABLE turno = Diccionario()\
+    VARIABLE turno = Diccionario()
 
     turno["nombre"] = nombre
     turno["tipoTramite"] = tipoTramite
     turno["estado"] = "EN ESPERA"
+
     turno["tiempoEstimado"] =
-        determinarTiempoTramite(tipoTramite)\
+        determinarTiempoTramite(tipoTramite)
 
-    RETORNAR turno\
+    RETORNAR turno
 
-FIN FUNCION\
+FIN FUNCION
 
 
-FUNCION agregarAFila(turno)\
+FUNCION agregarAFila(turno)
 
-    filaTurnos.ENCOLAR(turno)\
+    filaTurnos.ENCOLAR(turno)
 
-    VARIABLE tipo = turno["tipoTramite"]\
+    VARIABLE tipo = turno["tipoTramite"]
 
     conteoTramites[tipo] =
-        conteoTramites[tipo] + 1\
+        conteoTramites[tipo] + 1
 
-    MOSTRAR "Cliente agregado a la fila"\
+    MOSTRAR "Cliente agregado a la fila"
 
-FIN FUNCION\
+FIN FUNCION
 
 
-FUNCION atenderSiguiente()\
+FUNCION atenderSiguiente()
 
     SI filaTurnos.ESTA_VACIA() ENTONCES
         MOSTRAR "No hay clientes en espera"
         RETORNAR
-    FIN SI\
+    FIN SI
 
-    turnoActual = filaTurnos.DESENCOLAR()\
+    turnoActual = filaTurnos.DESENCOLAR()
 
-    turnoActual["estado"] = "ATENDIDO"\
+    turnoActual["estado"] = "ATENDIDO"
 
-    historialAtendidos.AGREGAR(turnoActual)\
+    historialAtendidos.AGREGAR(turnoActual)
 
     MOSTRAR "Atendiendo a: "
-            + turnoActual["nombre"]\
+            + turnoActual["nombre"]
 
-FIN FUNCION\
+FIN FUNCION
 
 
-FUNCION calcularEsperaTotal()\
+FUNCION calcularEsperaTotal()
 
-    VARIABLE tiempoTotal = 0\
+    VARIABLE tiempoTotal = 0
 
-    PARA CADA turno EN filaTurnos HACER\
+    PARA CADA turno EN filaTurnos HACER
 
         tiempoTotal =
             tiempoTotal +
-            turno["tiempoEstimado"]\
+            turno["tiempoEstimado"]
 
-    FIN PARA\
+    FIN PARA
 
-    RETORNAR tiempoTotal\
+    RETORNAR tiempoTotal
 
-FIN FUNCION\
+FIN FUNCION
 
 
-FUNCION mostrarFila()\
+FUNCION mostrarFila()
 
     SI filaTurnos.ESTA_VACIA() ENTONCES
         MOSTRAR "La fila está vacía"
         RETORNAR
-    FIN SI\
+    FIN SI
 
-    MOSTRAR "Fila actual:"\
+    MOSTRAR "===== FILA ACTUAL ====="
 
-    PARA CADA turno EN filaTurnos HACER\
+    PARA CADA turno EN filaTurnos HACER
 
-        MOSTRAR turno["nombre"]
-        MOSTRAR turno["tipoTramite"]
-        MOSTRAR turno["estado"]\
+        MOSTRAR "Cliente: "
+                + turno["nombre"]
 
-    FIN PARA\
+        MOSTRAR "Trámite: "
+                + turno["tipoTramite"]
 
-FIN FUNCION\
+        MOSTRAR "Estado: "
+                + turno["estado"]
+
+        MOSTRAR "Tiempo estimado: "
+                + turno["tiempoEstimado"]
+
+    FIN PARA
+
+FIN FUNCION
 
 
-FUNCION mostrarTurnoActual()\
+FUNCION mostrarTurnoActual()
 
     SI turnoActual == NULO ENTONCES
         MOSTRAR "No hay turno en atención"
         RETORNAR
-    FIN SI\
+    FIN SI
 
-    MOSTRAR "Turno actual:"
-    MOSTRAR turnoActual["nombre"]
-    MOSTRAR turnoActual["tipoTramite"]\
+    MOSTRAR "===== TURNO ACTUAL ====="
 
-FIN FUNCION\
+    MOSTRAR "Cliente: "
+            + turnoActual["nombre"]
+
+    MOSTRAR "Trámite: "
+            + turnoActual["tipoTramite"]
+
+FIN FUNCION
 
 
-FUNCION determinarTramiteMasSolicitado()\
+FUNCION determinarTramiteMasSolicitado()
 
     VARIABLE mayor = 0
-    VARIABLE tramiteMasSolicitado = ""\
+    VARIABLE tramiteMasSolicitado = ""
 
-    PARA CADA tipo EN conteoTramites HACER\
+    PARA CADA tipo EN conteoTramites HACER
 
-        SI conteoTramites[tipo] > mayor ENTONCES\
+        SI conteoTramites[tipo] > mayor ENTONCES
 
             mayor = conteoTramites[tipo]
-            tramiteMasSolicitado = tipo\
 
-        FIN SI\
+            tramiteMasSolicitado = tipo
 
-    FIN PARA\
+        FIN SI
 
-    RETORNAR tramiteMasSolicitado\
+    FIN PARA
 
-FIN FUNCION\
+    RETORNAR tramiteMasSolicitado
+
+FIN FUNCION
 
 
-FUNCION generarReporteDia()\
+FUNCION generarReporteDia()
 
     VARIABLE totalClientes =
-        historialAtendidos.TAMANIO()\
+        historialAtendidos.TAMANIO()
 
-    VARIABLE tiempoTotal = 0\
+    VARIABLE tiempoTotal = 0
 
-    PARA CADA turno EN historialAtendidos HACER\
+    PARA CADA turno EN historialAtendidos HACER
 
         tiempoTotal =
             tiempoTotal +
-            turno["tiempoEstimado"]\
+            turno["tiempoEstimado"]
 
-    FIN PARA\
+    FIN PARA
 
     VARIABLE tramiteMasSolicitado =
-        determinarTramiteMasSolicitado()\
+        determinarTramiteMasSolicitado()
 
-    MOSTRAR "===== REPORTE DEL DÍA ====="\
+    MOSTRAR "===== REPORTE DEL DÍA ====="
 
     MOSTRAR "Clientes atendidos: "
-            + totalClientes\
+            + totalClientes
 
     MOSTRAR "Tiempo total de atención: "
-            + tiempoTotal\
+            + tiempoTotal
 
     MOSTRAR "Trámite más solicitado: "
-            + tramiteMasSolicitado\
+            + tramiteMasSolicitado
 
-FIN FUNCION\
+FIN FUNCION
 
 
-PROGRAMA PRINCIPAL\
+PROGRAMA PRINCIPAL
 
     VARIABLE turno1 =
-        crearTurno("Ana", "SIMPLE")\
+        crearTurno("Ana", "SIMPLE")
 
     SI turno1 != NULO ENTONCES
         agregarAFila(turno1)
-    FIN SI\
+    FIN SI
 
 
     VARIABLE turno2 =
-        crearTurno("Luis", "MEDIO")\
+        crearTurno("Luis", "MEDIO")
 
     SI turno2 != NULO ENTONCES
         agregarAFila(turno2)
-    FIN SI\
+    FIN SI
 
 
     VARIABLE turno3 =
-        crearTurno("", "COMPLEJO")\
+        crearTurno("Maria", "COMPLEJO")
+
+    SI turno3 != NULO ENTONCES
+        agregarAFila(turno3)
+    FIN SI
 
 
     VARIABLE turno4 =
-        crearTurno("Carlos", "INVALIDO")\
+        crearTurno("", "COMPLEJO")
 
 
-    mostrarFila()\
+    VARIABLE turno5 =
+        crearTurno("Carlos", "INVALIDO")
+
+
+    mostrarFila()
+
 
     MOSTRAR "Tiempo total de espera: "
-            + calcularEsperaTotal()\
+            + calcularEsperaTotal()
 
-    atenderSiguiente()\
 
-    mostrarTurnoActual()\
+    atenderSiguiente()
 
-    generarReporteDia()\
 
-FIN PROGRAMA\
+    mostrarTurnoActual()
+
+
+    generarReporteDia()
+
+FIN PROGRAMA
+
