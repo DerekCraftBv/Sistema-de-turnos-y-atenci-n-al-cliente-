@@ -1,8 +1,8 @@
 # **Descripción del problema**
 
-## **Nombre del proyecto**
+## Sistema de turnos y atención al cliente
 
-**Sistema de turnos y atención al cliente**
+
 
 
 Una sucursal de servicios necesita un sistema que ayude a organizar la atención de
@@ -236,3 +236,4 @@ Representarán los tipos de trámite disponibles:
 El objetivo de este proyecto es desarrollar un sistema organizado y modular que
 permita administrar turnos de atención al cliente utilizando estructuras de datos
 adecuadas, validaciones y funciones separadas para cada tarea del sistema.
+---
