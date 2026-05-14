@@ -1,4 +1,4 @@
-### *Documento de Diseño*
+# Documento de Diseño
 
 ## Sistema de turnos y atención al cliente
 

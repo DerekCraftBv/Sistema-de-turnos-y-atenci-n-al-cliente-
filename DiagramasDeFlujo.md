@@ -1,4 +1,4 @@
-### *Diagramas de flujo*
+# Diagramas de flujo
 
 ## Función validarCliente()
 

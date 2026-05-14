@@ -1,4 +1,4 @@
-### *Pseudocodigo*
+# Pseudocodigo
 ```
 
 ENUM TipoTramite
