@@ -1,7 +1,7 @@
-# Documento de Diseño
+### *Documento de Diseño*
 
-## Nombre del proyecto
-**Sistema de turnos y atención al cliente**
+## Sistema de turnos y atención al cliente
+
 
 ---
 
