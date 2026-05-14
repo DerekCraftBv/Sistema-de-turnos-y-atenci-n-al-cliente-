@@ -243,3 +243,4 @@ El diseño modular y el uso de estructuras de datos adecuadas permiten:
 - facilidad para futuras mejoras.
 
 ---
+---
