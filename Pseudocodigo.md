@@ -1,3 +1,6 @@
+### Pseudocodigo
+```
+
 ENUM TipoTramite
     SIMPLE = 5
     MEDIO = 15
@@ -288,3 +291,4 @@ PROGRAMA PRINCIPAL
 
 FIN PROGRAMA
 
+```
