@@ -19,7 +19,7 @@ E --> F
 
 ```
 
-##Función validarTramite()
+## Función validarTramite()
 
 ```mermaid
 flowchart TD
